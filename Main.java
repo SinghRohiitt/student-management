@@ -10,6 +10,7 @@ public class Main {
 
         while (true) {
 
+            System.out.println("\n===== STUDENT MANAGEMENT SYSTEM =====");
             System.out.println("1. Add Student");
             System.out.println("2. Display Students");
             System.out.println("3. Search Student");
@@ -18,26 +19,69 @@ public class Main {
             System.out.println("6. Exit");
 
             System.out.print("Enter choice: ");
-            int choice = sc.nextInt();
+
+            int choice = 0;
+
+            try {
+
+                choice = sc.nextInt();
+
+                if (choice < 1 || choice > 6) {
+                    System.out.println("Invalid Menu Choice");
+                    continue;
+                }
+
+            } catch (Exception e) {
+
+                System.out.println("Invalid Input! Enter Numbers Only");
+
+                sc.nextLine();
+
+                continue;
+            }
 
             switch (choice) {
 
                 case 1:
 
-                    System.out.print("Enter ID: ");
-                    int id = sc.nextInt();
+                    try {
 
-                    sc.nextLine();
+                        System.out.print("Enter ID: ");
+                        int id = sc.nextInt();
 
-                    System.out.print("Enter Name: ");
-                    String name = sc.nextLine();
+                        if (id <= 0) {
+                            System.out.println("ID must be positive");
+                            continue;
+                        }
 
-                    System.out.print("Enter Age: ");
-                    int age = sc.nextInt();
+                        sc.nextLine();
 
-                    Student s = new Student(id, name, age);
+                        System.out.print("Enter Name: ");
+                        String name = sc.nextLine();
 
-                    sm.addStudent(s);
+                        if (name.isEmpty()) {
+                            System.out.println("Name cannot be empty");
+                            continue;
+                        }
+
+                        System.out.print("Enter Age: ");
+                        int age = sc.nextInt();
+
+                        if (age <= 0) {
+                            System.out.println("Age must be positive");
+                            continue;
+                        }
+
+                        Student s = new Student(id, name, age);
+
+                        sm.addStudent(s);
+
+                    } catch (Exception e) {
+
+                        System.out.println("Invalid Input!");
+
+                        sc.nextLine();
+                    }
 
                     break;
 
@@ -46,43 +90,88 @@ public class Main {
                     break;
                 case 3:
 
-                    System.out.print("Enter Student ID to Search: ");
-                    int searchId = sc.nextInt();
+                    try {
 
-                    sm.searchStudent(searchId);
+                        System.out.print("Enter Student ID to Search: ");
+
+                        int searchId = sc.nextInt();
+
+                        sm.searchStudent(searchId);
+
+                    } catch (Exception e) {
+
+                        System.out.println("Invalid ID!");
+
+                        sc.nextLine();
+                    }
 
                     break;
 
                 case 4:
 
-                    System.out.print("Enter Student ID to delete Student: ");
-                    int removeId = sc.nextInt();
+                    try {
 
-                    sm.deleteStudent(removeId);
+                        System.out.print("Enter Student ID to Delete: ");
+
+                        int removeId = sc.nextInt();
+
+                        sm.deleteStudent(removeId);
+
+                    } catch (Exception e) {
+
+                        System.out.println("Invalid ID!");
+
+                        sc.nextLine();
+                    }
 
                     break;
+
+                // UPDATE
                 case 5:
 
-                    System.out.print("Enter Student ID to Update: ");
-                    int updateId = sc.nextInt();
+                    try {
 
-                    sc.nextLine();
+                        System.out.print("Enter Student ID to Update: ");
 
-                    System.out.print("Enter New Name: ");
-                    String newName = sc.nextLine();
+                        int updateId = sc.nextInt();
 
-                    System.out.print("Enter New Age: ");
-                    int newAge = sc.nextInt();
+                        sc.nextLine();
 
-                    sm.updateStudent(updateId, newName, newAge);
+                        System.out.print("Enter New Name: ");
+
+                        String newName = sc.nextLine();
+
+                        if (newName.isEmpty()) {
+                            System.out.println("Name cannot be empty");
+                            continue;
+                        }
+
+                        System.out.print("Enter New Age: ");
+
+                        int newAge = sc.nextInt();
+
+                        if (newAge <= 0) {
+                            System.out.println("Age must be positive");
+                            continue;
+                        }
+
+                        sm.updateStudent(updateId, newName, newAge);
+
+                    } catch (Exception e) {
+
+                        System.out.println("Invalid Input!");
+
+                        sc.nextLine();
+                    }
 
                     break;
-                case 6:
-                    System.out.println("Exiting...");
-                    System.exit(0);
 
-                default:
-                    System.out.println("Invalid Choice");
+                // EXIT
+                case 6:
+
+                    System.out.println("Exiting...");
+
+                    System.exit(0);
             }
         }
     }
